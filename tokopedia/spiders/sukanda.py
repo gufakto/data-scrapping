@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+from pprint import pprint
 
 class SukandaSpider(scrapy.Spider):
     name = 'sukanda'
@@ -9,6 +9,7 @@ class SukandaSpider(scrapy.Spider):
     
     async def parse(self, response):
         for products in response.css('div.prd_container-card'):
+            pprint(products.css('div.prd_link-product-name::text').get())
             yield {
                 'name': products.css('div.prd_link-product-name::text').get(),
                 'price': products.css('div.prd_link-product-price::text').get(),
